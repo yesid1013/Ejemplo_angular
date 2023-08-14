@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SB Admin 2 - Blank</title>
+
+  <!-- Custom fonts for this template-->
+
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Componente menu lateral -->
+    <app-menu></app-menu>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!--    Componente Topbar -->
+        <app-topbar></app-topbar>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+
+
+          <!-- Contenido de la pagina -->
+          <h1 class="h3 mb-4 text-gray-800">Factura</h1>
+
+          <form [formGroup]="formularioFact" (ngSubmit)="agregarFactura()" class="row g-3">
+
+            <!-- <div class="col-md-3">
+              <div class="form-outline" style="width: 23rem;">
+                <i class="fas fa-dollar-sign trailing"></i>
+                <input min="1" type="text" id="form1" class="form-control form-icon-trailing"
+                  placeholder="Nombre del cliente" disabled />
+              </div>
+            </div> -->
+
+            <div class="col-md-3">
+              <div class="form-outline" style="width: 23rem;">
+                <i class="fas fa-dollar-sign trailing"></i>
+                <input formControlName="documento" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Ingrese el numero de documento">
+                <datalist id="datalistOptions">
+                  <option *ngFor="let cliente of lista_clientes" [value]="cliente.id_cliente">{{cliente.num_documento}} {{cliente.nombre}} {{cliente.apellido}}</option>
+                </datalist>
+
+              </div>
+              
+            </div>
+
+            <!-- <div class="col-md-1 ps-0">
+              <a href="" class="btn btn-light">🔍</a>
+            </div> -->
+
+            <div class="col-md-2 pe-0" style="margin-left: 80px;">
+              <a (click)="openModal(template)"  class="btn btn-success">Añadir nuevo cliente</a>
+            </div>
+
+            <!--MODAL AGREGAR CLIENTE-->
+            <ng-template #template>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Añadir nuevo cliente</h4>
+                <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                  <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="row p-1" [formGroup]="formcliente">
+
+                  <div class="row p-1">
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i>
+                        <input formControlName="num_documento" type="text" id="" class="form-control form-icon-trailing"
+                          placeholder="Ingrese el numero de documento" />
+
+                        <div *ngIf="formcliente.get('num_documento')?.hasError('required') && formcliente.touched"
+                          class="alert alert-primary" role="alert">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          El numero de documento es requerido.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i>
+                        <input formControlName="nombre" type="text" id="" class="form-control form-icon-trailing"
+                          placeholder="Ingrese el nombre" />
+
+                        <div *ngIf="formcliente.get('nombre')?.hasError('required') && formcliente.touched"
+                          class="alert alert-primary" role="alert">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          El nombre es requerido.
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row p-1">
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i>
+                        <input formControlName="apellido" type="text" id="" class="form-control form-icon-trailing"
+                          placeholder="Ingrese el apellido" />
+
+                        <div *ngIf="formcliente.get('apellido')?.hasError('required') && formcliente.touched"
+                          class="alert alert-primary" role="alert">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          El apellido es requerido.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i>
+                        <input formControlName="telefono" type="text" id="" class="form-control form-icon-trailing"
+                          placeholder="Ingrese el telefono" />
+
+                        <div *ngIf="formcliente.get('telefono')?.hasError('required') && formcliente.touched"
+                          class="alert alert-primary" role="alert">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          El telefono es requerido.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row p-1">
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i>
+                        <input formControlName="email" type="text" id="" class="form-control form-icon-trailing"
+                          placeholder="Ingrese el email" />
+
+                        <div *ngIf="formcliente.get('email')?.hasError('required') && formcliente.touched"
+                          class="alert alert-primary" role="alert">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          El email es requerido.
+                        </div>
+                        <div *ngIf="formcliente.get('email')?.hasError('email') && formcliente.touched"
+                          class="alert alert-primary" role="alert">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          El email es invalido.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <button [disabled]="formcliente.invalid" (click)="insertar_cliente(formcliente.value)"
+                        type="button" class="btn btn-primary">Añadir
+                        Cliente
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="col-12 pt-4 text-center">
+
+                </div>
+
+              </div>
+            </ng-template>
+            <!--FIN MODAL AGREGAR CLIENTE-->
+
+            <h1 class="h3 mb-4 text-gray-800">Productos</h1>
+
+            <div class="col-2">
+              <div class="form-outline" style="width: 15rem;">
+
+                <input formControlName="producto"  class="form-control" list="products" id="exampleDataLis" placeholder="Ingrese el id del producto">
+                <datalist id="products">
+                  <option *ngFor="let producto of listaproductos" [value]="producto.Id_producto">{{producto.Nombre}}, Disponible: {{producto.Cantidad}} </option>
+                </datalist>
+
+              </div>
+            </div>
+
+            <div class="col-1 ps-4 " style="margin-left: 80px;">
+              <div class="form-outline" style="width: 7rem;">
+                <i class="fas fa-dollar-sign trailing"></i>
+                <input formControlName="cantidad" min="1" type="number" id="form1"
+                  class="form-control form-icon-trailing" placeholder="Cantidad" />
+                <div *ngIf="formularioFact.get('cantidad')?.hasError('required') && formularioFact.touched"
+                  class="alert alert-primary" role="alert">
+                  <i class="bi bi-exclamation-triangle"></i>
+                  La cantidad es requerida.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-1 ps-4" style="margin-left: 50px;">
+              <button class="btn btn-success" type="submit">Agregar</button>
+            </div>
+
+            <!-- <div class="col-12">
+                          <label for="inputAddress2" class="form-label">Address 2</label>
+                          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                        </div> -->
+
+            <!--<div class="col-md-4">
+                          <label for="inputState" class="form-label">State</label>
+                          <select id="inputState" class="form-select">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                          </select>
+                        </div>-->
+
+
+            <!--<div class="col-12">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                              Check me out
+                            </label>
+                          </div>
+                        </div>-->
+
+
+            <div class="col-12 pt-4">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Numero de documento</th>
+                    <th scope="col">Producto id</th>
+                    <th scope="col">Nombre de producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio unitario</th>
+                    <th scope="col">Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fact of factura ; let i = index">
+                    <th >{{fact.documento}}</th>
+                    <td>{{fact.producto}}</td>
+                    <td>{{nombre_productos[i]}}</td>
+                    <td>{{fact.cantidad}}</td>
+                    <td>{{precio_unitario[i]}}</td>
+                    <td><button class="btn btn-danger" (click)="eliminarFactura(i)" type="button">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+            <div class="col-12 text-center">
+              <button [disabled]="formularioFact.invalid" (click)="generarFactura()" type="button"  class="btn btn-primary">Generar</button>
+            </div>
+          </form>
+
+
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <app-footer></app-footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+</body>
+
+</html>

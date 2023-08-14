@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Login</title>
+
+
+
+</head>
+
+<body>
+
+    <div class="container pt-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Inicio de sesión</h1>
+                                        
+                                        
+                                    </div>
+                                    <form [formGroup]="miformulario" class="user">
+                                      
+
+                                        <div *ngIf="miformulario.invalid && miformulario.touched" class="alert alert-danger d-flex align-items-center" role="alert">
+                                            <i class="bi bi-shield-x"></i>
+                                            <div>Error: Formulario invalido</div>
+                                        </div>
+
+
+                                        <div class="form-group" >
+                                            <input type="email" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Ingrese su correo" formControlName = "usuario" >
+                                                <div *ngIf="miformulario.get('usuario')?.hasError('required') &&miformulario.touched" class="alert alert-primary" role="alert">
+                                                  <i class="bi bi-exclamation-triangle"></i>
+                                                    El correo  es requerido.
+                                                  </div>
+                                                  <div *ngIf="miformulario.get('usuario')?.hasError('email') && miformulario.touched" class="alert alert-primary" role="alert">
+                                                    <i class="bi bi-exclamation-triangle"></i>
+                                                    El correo es invalido.
+                                                  </div>
+                                                   
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="Ingrese la contraseña" formControlName = "password">
+                                                <div *ngIf="miformulario.get('password')?.hasError('required') && miformulario.touched" class="alert alert-primary" role="alert">
+                                                  <i class="bi bi-exclamation-triangle"></i>
+                                                    La Contraseña  es requerida.
+                                                  </div>
+                                        </div>
+                                        
+                                        
+                                        <button [disabled]="miformulario.invalid" type="button" class="btn btn-primary btn-user btn-block " (click)="login(miformulario.value)" >Iniciar sesión</button>
+                                        <button type="button" class="btn btn-primary btn-user btn-block" (click)="openModal(template)">Registrarse</button>
+                                        
+                                    </form>
+
+                                    <form [formGroup]="formRegistro" class="user"> 
+                                        <ng-template #template>
+                                            <div class="modal-header">
+                                                <h4 class="modal-title pull-left">Registro</h4>
+                                                <button type="button" class="close btn-close pull-right" aria-label="Close"
+                                                  (click)="modalRef?.hide()">
+                                                  <span aria-hidden="true" class="visually-hidden">&times;</span>
+                                                </button>
+                                            </div>
+    
+                                            <div class="modal-body">
+                                                <div class="row p-1">
+                                                    <div class="col-md-6 ">
+                                                      <div class="form-outline">
+                                                        <i class="fas fa-dollar-sign trailing"></i>
+                                                        <input type="text" id="form1" class="form-control form-icon-trailing"
+                                                          placeholder="Ingrese su nombre" formControlName = "nombre" />
+                                
+                                                          <div *ngIf="formRegistro.get('nombre')?.hasError('required') && formRegistro.touched" class="alert alert-primary" role="alert">
+                                                            <i class="bi bi-exclamation-triangle"></i>
+                                                              El nombre  es requerido.
+                                                            </div>
+                                
+                                                      </div>
+                                                    </div>
+                                
+                                                    <div class="col-md-6 " >
+                                                      <div class="form-outline">
+                                                        <i class="fas fa-dollar-sign trailing"></i>
+                                                        <input formControlName="apellido"  type="text" id="form1"
+                                                          class="form-control form-icon-trailing"
+                                                          placeholder="Ingrese su apellido" />
+                                
+                                                          <div *ngIf="formRegistro.get('apellido')?.hasError('required') && formRegistro.touched" class="alert alert-primary" role="alert">
+                                                            <i class="bi bi-exclamation-triangle"></i>
+                                                              El apellido  es requerido.
+                                                            </div>
+                                
+                                                      </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row p-1">
+                                                    <div class="col-md-6 ">
+                                                      <div class="form-outline">
+                                                        <i class="fas fa-dollar-sign trailing"></i>
+                                                        <input type="text" id="form1" class="form-control form-icon-trailing"
+                                                          placeholder="Ingrese su correo" formControlName = "correo" />
+                                                          <div *ngIf="formRegistro.get('correo')?.hasError('required') && formRegistro.touched" class="alert alert-primary" role="alert">
+                                                            <i class="bi bi-exclamation-triangle"></i>
+                                                              El correo  es requerido.
+                                                            </div>
+                                                            <div *ngIf="formRegistro.get('correo')?.hasError('email') && formRegistro.touched" class="alert alert-primary" role="alert">
+                                                                <i class="bi bi-exclamation-triangle"></i>
+                                                                El correo es invalido.
+                                                              </div>
+                                
+                                                      </div>
+                                                    </div>
+                                
+                                                    <div class="col-md-6 " >
+                                                      <div class="form-outline">
+                                                        <i class="fas fa-dollar-sign trailing"></i>
+                                                        <input formControlName="password"  type="password" id="form1"
+                                                          class="form-control form-icon-trailing"
+                                                          placeholder="Ingrese una contraseña" />
+                                
+                                                          <div *ngIf="formRegistro.get('password')?.hasError('required') && formRegistro.touched" class="alert alert-primary" role="alert">
+                                                            <i class="bi bi-exclamation-triangle"></i>
+                                                              La contraseña es requerida.
+                                                            </div>
+                                
+                                                      </div>
+
+                                                
+                                                    </div>
+
+                                                    
+                                                </div>
+                                                <div class="row p-1">
+                                                  <div class="col-md-6 " >
+                                                    <div class="form-outline">
+                                                      <i class="fas fa-dollar-sign trailing"></i>
+                                                      <input formControlName="validarPassword"  type="password" id="form1"
+                                                        class="form-control form-icon-trailing"
+                                                        placeholder="Validar contraseña" />
+                              
+                                                        <div *ngIf="formRegistro.get('validarPassword')?.hasError('noCoincide') && formRegistro.touched " class="alert alert-primary" role="alert">
+                                                          <i class="bi bi-exclamation-triangle"></i>
+                                                            La contraseña no coincide.
+                                                          </div>
+                              
+                                                    </div>
+  
+                                                  </div>
+
+                                                </div>
+
+                                                
+
+                                                <div class="row pt-4">
+                                                    <div class="col text-center">
+                                                      <div class="form-outline">
+                                        
+                                                        <button [disabled]="formRegistro.invalid" type="button"  class="btn btn-primary" (click)="registro(formRegistro.value)" >Registrarse</button>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+    
+    
+                                            </div>
+                                        </ng-template>
+                                    </form>
+                                    
+                                
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+
+
+
+</body>
+
+</html>

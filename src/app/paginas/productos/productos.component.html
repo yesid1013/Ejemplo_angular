@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SB Admin 2 - Blank</title>
+
+  <!-- Custom fonts for this template-->
+
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Componente menu lateral -->
+    <app-menu></app-menu>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!--    Componente Topbar -->
+        <app-topbar></app-topbar>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <!-- Contenido de la pagina -->
+          <h1 class="h3 mb-4 text-gray-800">Productos</h1>
+
+          <form class="row p-1" [formGroup]="formProducts">
+
+
+            <div class="col-md-2 pe-0">
+              <a class="btn btn-success" (click)="openModal(template)"><i class="bi bi-plus-circle" style="font-size: 1.2em;"></i> Añadir nuevo producto</a>
+
+              <ng-template #template>
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Crear nuevo producto</h4>
+                  <button type="button" class="close btn-close pull-right" aria-label="Close"
+                    (click)="modalRef?.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="row p-1">
+                    <div class="col-md-6 ">
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i>
+                        <input min="1" type="text" id="form1" class="form-control form-icon-trailing"
+                          placeholder="Ingrese el numero de serie" formControlName = "modelo" />
+
+                          <div *ngIf="formProducts.get('modelo')?.hasError('required') && formProducts.touched" class="alert alert-primary" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i>
+                              El modelo  es requerido.
+                            </div>
+
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 " >
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i>
+                        <input formControlName="nombre" min="1" type="text" id="form1"
+                          class="form-control form-icon-trailing"
+                          placeholder="Ingrese el nombre comercial" />
+
+                          <div *ngIf="formProducts.get('nombre')?.hasError('required') && formProducts.touched" class="alert alert-primary" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i>
+                              El nombre comercial  es requerido.
+                            </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row p-1">
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i>
+                        <select formControlName="tipo" name="tipo_producto" id="tipo producto" class="form-select  form-icon-trailing">
+                          <option value="" disabled selected>--Seleccionar una opcion--</option>
+                          <option value=4>Ropa deportiva</option>
+                          <option value=5>Gimnasio</option>
+                          <option value=6>Balón de futbol</option>
+                          <option value=7>Equipamiento de futbol</option>
+                          <option value=8>Pelota de Beisbol</option>
+                          <option value=9>Equipamiento de beisbol</option>
+                          <option value=10>Pelota de Tenis</option>
+                          <option value=11>Equipamiento de Tenis</option>
+                          <option value=12>Zapatos - Tennis</option>
+                        </select>
+                        <div *ngIf="formProducts.get('tipo')?.hasError('required') && formProducts.touched" class="alert alert-primary" role="alert">
+                          <i class="bi bi-exclamation-triangle"></i>
+                            Por favor seleccione una opcion.
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                        <i class="fas fa-dollar-sign trailing"></i> 
+                        <input formControlName="precio" min="1" type="number" id="form1"
+                          class="form-control form-icon-trailing"
+                          placeholder="Ingrese el precio" />
+                          <div *ngIf="formProducts.get('precio')?.hasError('required') && formProducts.touched" class="alert alert-primary" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i>
+                              El precio  es requerido.
+                            </div>
+                            <div *ngIf="formProducts.get('precio')?.hasError('min') && formProducts.touched" class="alert alert-primary" role="alert">
+                              <i class="bi bi-exclamation-triangle"></i>
+                                Ingrese un valor valido.
+                              </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row pt-4">
+                    <div class="col text-center">
+                      <div class="form-outline">
+                        <!-- <a [disabled]="formProducts.invalid" class="btn btn-primary" (click)="modalRef?.hide()" >Añadir producto</a> -->
+                        <button [disabled]="formProducts.invalid" type="button" (click)="agregar_producto(formProducts.value)" class="btn btn-primary">Añadir producto</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </ng-template>
+            </div>
+
+
+            <div class="col-md-2 pe-0">
+              <a class="btn btn-success" (click)="openModal(template1)"><i class="bi bi-recycle" style="font-size: 1.2em;"></i> Ver productos borrados</a>
+
+              <ng-template #template1>
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Productos borrados</h4>
+                  <button type="button" class="close btn-close pull-right" aria-label="Close"
+                    (click)="modalRef?.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="col-12 pt-4 text-center">
+                    <table  class="row-border hover table">
+                      <thead>
+                        <tr>
+      
+                          <th>Nombre</th>
+                          <th>Modelo</th>
+                          <th>Tipo</th>
+                          <th>Precio</th>
+                          <th>Restaurar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let producto of lista_productos_borrados">
+                          <td>{{producto.Nombre}}</td>
+                          <td>{{producto.Num_serie}}</td>
+                          <td>{{producto.Id_tipo_producto}}</td>
+                          <td>{{producto.Precio}}</td>
+                          <td><a class="btn btn-success"  (click)="restaurar_producto(producto.id_producto)" ><i class="bi bi-check" style="font-size: 1.2em;"></i> Restaurar</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </ng-template>
+            </div>
+
+            
+
+
+            <div class="col-12 pt-4">
+              <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                <thead>
+                  <tr> 
+
+                    <th>Nombre</th>
+                    <th>Modelo</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let producto of lista_productos">
+                    <td>{{producto.Nombre}}</td>
+                    <td>{{producto.Num_serie}}</td>
+                    <td>{{producto.Id_tipo_producto}}</td>
+                    <td>{{producto.Precio}}</td>
+                    <td><a class="btn btn-success" (click)="openModal2(template2,producto)" ><i class="bi bi-pencil-square" style="font-size: 1.2em;"></i> Editar</a></td>
+                    <td><a class="btn btn-danger"  (click)="eliminar_producto(producto.id_producto)" ><i class="bi bi-trash" style="font-size: 1.2em;"></i> Eliminar</a></td>
+                    
+                    <!--MODAL EDITAR-->
+                    <ng-template #template2>
+                      <div class="modal-header">
+                        <h4 class="modal-title pull-left">Editar producto</h4>
+                        <button type="button" class="close btn-close pull-right" aria-label="Close"
+                          (click)="cerrarModal()">
+                          <span aria-hidden="true" class="visually-hidden">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+      
+                        <div class="row p-1">
+                          <div class="col-md-6 ">
+                            <div class="form-outline">
+                              <i class="fas fa-dollar-sign trailing"></i>
+                              <input min="1" type="text" id="form1" class="form-control form-icon-trailing"
+                                placeholder="Ingrese el numero de serie" formControlName = "modelo" />
+      
+                                <div *ngIf="formProducts.get('modelo')?.hasError('required') && formProducts.touched" class="alert alert-primary" role="alert">
+                                  <i class="bi bi-exclamation-triangle"></i>
+                                    El modelo  es requerido.
+                                  </div>
+      
+                            </div>
+                          </div>
+      
+                          <div class="col-md-6 " >
+                            <div class="form-outline">
+                              <i class="fas fa-dollar-sign trailing"></i>
+                              <input formControlName="nombre" min="1" type="text" id="form1"
+                                class="form-control form-icon-trailing"
+                                placeholder="Ingrese el nombre comercial" />
+      
+                                <div *ngIf="formProducts.get('nombre')?.hasError('required') && formProducts.touched" class="alert alert-primary" role="alert">
+                                  <i class="bi bi-exclamation-triangle"></i>
+                                    El nombre comercial  es requerido.
+                                  </div>
+      
+                            </div>
+                          </div>
+                        </div>
+      
+                        <div class="row p-1">
+                          <div class="col-md-6">
+                            <div class="form-outline">
+                              <i class="fas fa-dollar-sign trailing"></i>
+                              <select formControlName="tipo" name="tipo_producto" id="tipo producto" class="form-select  form-icon-trailing">
+                                <option value="" disabled selected>--Seleccionar una opcion--</option>
+                                <option value=4>Ropa deportiva</option>
+                                <option value=5>Gimnasio</option>
+                                <option value=6>Balón de futbol</option>
+                                <option value=7>Equipamiento de futbol</option>
+                                <option value=8>Pelota de Beisbol</option>
+                                <option value=9>Equipamiento de beisbol</option>
+                                <option value=10>Pelota de Tenis</option>
+                                <option value=11>Equipamiento de Tenis</option>
+                                <option value=12>Zapatos - Tennis</option>
+                              </select>
+                              <div *ngIf="formProducts.get('tipo')?.hasError('required') && formProducts.touched" class="alert alert-primary" role="alert">
+                                <i class="bi bi-exclamation-triangle"></i>
+                                  Por favor seleccione una opcion.
+                                </div>
+                            </div>
+                          </div>
+      
+                          <div class="col-md-6">
+                            <div class="form-outline">
+                              <i class="fas fa-dollar-sign trailing"></i> 
+                              <input formControlName="precio" min="1" type="number" id="form1"
+                                class="form-control form-icon-trailing"
+                                placeholder="Ingrese el precio" />
+                                <div *ngIf="formProducts.get('precio')?.hasError('required') && formProducts.touched" class="alert alert-primary" role="alert">
+                                  <i class="bi bi-exclamation-triangle"></i>
+                                    El precio  es requerido.
+                                  </div>
+                                  <div *ngIf="formProducts.get('precio')?.hasError('min') && formProducts.touched" class="alert alert-primary" role="alert">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                      Ingrese un valor valido.
+                                    </div>
+                            </div>
+                          </div>
+                        </div>
+      
+      
+                        <div class="row pt-4">
+                          <div class="col text-center">
+                            <div class="form-outline">
+                              <!-- <a [disabled]="formProducts.invalid" class="btn btn-primary" (click)="modalRef?.hide()" >Añadir producto</a> -->
+                              <button [disabled]="formProducts.invalid" type="button" (click)="editar_product(formProducts.value,producto.id_producto)" class="btn btn-primary">Editar producto</button>
+                            </div>
+                          </div>
+                        </div>
+      
+                      </div>
+                    </ng-template>
+                    <!--FIN MODAL EDITAR-->
+
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <app-footer></app-footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>
